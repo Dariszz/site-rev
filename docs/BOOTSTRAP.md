@@ -37,10 +37,16 @@ Depois da finalização do starter, ajustados o limite de memória PHPStan e os 
 
 ## Impedimentos de ambiente
 
+## Resultado da CI e revisão
+
+A [execução 36904542528](https://github.com/Dariszz/site-rev/actions/runs/36904542528), no commit `39b66da`, passou em Linux: instalação reproduzível, build, check frontend, TypeScript, Pint, PHPStan e **40 testes com 138 asserções**. A primeira execução apontou formatação de `package.json` e da página de perfil após o instalador; a configuração e a formatação foram corrigidas, preservando as verificações. O [PR #1](https://github.com/Dariszz/site-rev/pull/1) está em rascunho para revisão pelo outro desenvolvedor, sem merge. Não há achado crítico/alto identificado na revisão própria da configuração; o comportamento do starter foi verificado pela CI.
+
+## Impedimentos de ambiente local
+
 O Controle de Aplicativos do Windows bloqueou extensões do PHP portátil (`pdo_pgsql`, `pdo_sqlite`, `pgsql`, `sqlite3`, `zip`, `intl` e `sodium`) e o módulo nativo de Rolldown. A remoção da marca de download dos arquivos de PHP verificados não resolveu o bloqueio. Não foi alterada a política do Windows nem substituído o compilador para esconder a falha.
 
 Somente extensões que carregaram foram habilitadas no PHP portátil local. O extrator já instalado pelo Git permitiu concluir Composer. A dependência nativa do frontend está instalada; o erro não é resolvido simplesmente afirmando que o pacote falta.
 
 Antes de desenvolvimento executável neste computador, disponibilizar um ambiente PHP/Node permitido pela política da máquina, com drivers PostgreSQL/SQLite carregando, e uma instância PostgreSQL local ou de desenvolvimento. Uma instalação confiável administrada, WSL ou container são alternativas a avaliar com o responsável pelo ambiente; nenhuma foi provisionada nesta preparação.
 
-Reexecutar build, check e testes nesse ambiente, confirmar conexão e migrations PostgreSQL e validar a CI antes de considerar a base plenamente verificada. Nenhuma migration foi aplicada a banco real e nenhum deploy foi realizado. A revisão desta entrega é própria, sem subagentes independentes.
+Reexecutar build, check e testes quando o ambiente local estiver disponível e confirmar conexão e migrations PostgreSQL. A CI validou a base em Linux com SQLite de teste; não confirma conexão com uma instância PostgreSQL. Nenhuma migration foi aplicada a banco real e nenhum deploy foi realizado. A revisão desta entrega é própria, sem subagentes independentes.
