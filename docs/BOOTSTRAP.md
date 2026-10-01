@@ -9,9 +9,9 @@ Registro de 2026-10-01. Escopo autorizado: README, base de projeto, dependência
 - Aplicação na raiz; PHP/Laravel, Fortify, React/Inertia, Eloquent e Tailwind seguem a proposta. O instalador de features do starter foi concluído com suas opções padrão, incluindo verificação de e-mail, cadastro, 2FA, passkeys e confirmação de senha. Isso não define as regras de acesso administrativo do produto.
 - Composer e npm são os gerenciadores escolhidos. PHP alvo 8.4.26 em `config.platform`; Node 24 em `.nvmrc` e engines. Lockfiles versionados para instalação reproduzível.
 - `.env.example` usa nome Revolução, locale `pt_BR`, PostgreSQL e e-mail em log. A tradução das telas ainda não foi feita. `.env` local gerado com chave própria e ignorado.
-- Git inicializado, remoto `origin` associado ao repositório informado e branch local `chore/project-bootstrap` preparada. O remoto estava vazio ao consultar HEAD. Não há identidade Git de autoria configurada neste ambiente: commit/publicação dependem dessa informação. `main` ainda não tem commit inicial; para o primeiro PR, estabelecer uma base documental em `main` e manter o código na branch de bootstrap, ou publicar a primeira base revisada em `main` e usar PRs nas tarefas seguintes. Não alegar PR ou proteção já criada.
+- Git inicializado e remoto `origin` associado ao repositório informado, inicialmente vazio. Identidade configurada somente neste repositório, com nome Pedro e e-mail fornecido pelo usuário. Criado commit documental inicial em `main`; a base da aplicação está em `chore/project-bootstrap` para revisão separada. Nenhum merge ou proteção de branch foi aplicado.
 - README e template de PR definem branches curtas, revisão pelo colega e ausência de `develop` permanente. Proteção de `main` ainda precisa ser aplicada no GitHub.
-- CI Linux em PRs e pushes para `main`: Composer install, npm ci, geração de chave, build, frontend check/tipos, Pint, PHPStan e testes. CI não executada remotamente nesta preparação.
+- CI Linux em PRs e pushes de branches: Composer install, npm ci, geração de chave, build, frontend check/tipos, Pint, PHPStan e testes. Branch documental e branch de bootstrap publicadas separadamente; não houve merge. Consultar o resultado da execução no GitHub antes de integrar.
 
 ## Verificações executadas
 
@@ -37,10 +37,16 @@ Depois da finalização do starter, ajustados o limite de memória PHPStan e os 
 
 ## Impedimentos de ambiente
 
+## Resultado da CI e revisão
+
+A [execução 36904542528](https://github.com/Dariszz/site-rev/actions/runs/36904542528), no commit `39b66da`, passou em Linux: instalação reproduzível, build, check frontend, TypeScript, Pint, PHPStan e **40 testes com 138 asserções**. A primeira execução apontou formatação de `package.json` e da página de perfil após o instalador; a configuração e a formatação foram corrigidas, preservando as verificações. O [PR #1](https://github.com/Dariszz/site-rev/pull/1) está em rascunho para revisão pelo outro desenvolvedor, sem merge. Não há achado crítico/alto identificado na revisão própria da configuração; o comportamento do starter foi verificado pela CI.
+
+## Impedimentos de ambiente local
+
 O Controle de Aplicativos do Windows bloqueou extensões do PHP portátil (`pdo_pgsql`, `pdo_sqlite`, `pgsql`, `sqlite3`, `zip`, `intl` e `sodium`) e o módulo nativo de Rolldown. A remoção da marca de download dos arquivos de PHP verificados não resolveu o bloqueio. Não foi alterada a política do Windows nem substituído o compilador para esconder a falha.
 
 Somente extensões que carregaram foram habilitadas no PHP portátil local. O extrator já instalado pelo Git permitiu concluir Composer. A dependência nativa do frontend está instalada; o erro não é resolvido simplesmente afirmando que o pacote falta.
 
 Antes de desenvolvimento executável neste computador, disponibilizar um ambiente PHP/Node permitido pela política da máquina, com drivers PostgreSQL/SQLite carregando, e uma instância PostgreSQL local ou de desenvolvimento. Uma instalação confiável administrada, WSL ou container são alternativas a avaliar com o responsável pelo ambiente; nenhuma foi provisionada nesta preparação.
 
-Reexecutar build, check e testes nesse ambiente, confirmar conexão e migrations PostgreSQL e validar a CI antes de considerar a base plenamente verificada. Nenhuma migration foi aplicada a banco real e nenhum deploy foi realizado. A revisão desta entrega é própria, sem subagentes independentes.
+Reexecutar build, check e testes quando o ambiente local estiver disponível e confirmar conexão e migrations PostgreSQL. A CI validou a base em Linux com SQLite de teste; não confirma conexão com uma instância PostgreSQL. Nenhuma migration foi aplicada a banco real e nenhum deploy foi realizado. A revisão desta entrega é própria, sem subagentes independentes.

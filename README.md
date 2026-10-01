@@ -65,7 +65,7 @@ composer types:check
 php artisan test
 ```
 
-`npm run check:fix` e `composer lint` alteram arquivos: revise o diff antes de commitar. A CI executa verificações frontend/backend, build e testes em PRs e na `main`. Os testes iniciais usam SQLite isolado; validar migrations e regras específicas de PostgreSQL fará parte das mudanças de persistência.
+`npm run check:fix` e `composer lint` alteram arquivos: revise o diff antes de commitar. A CI executa verificações frontend/backend, build e testes em PRs e pushes de branches. Os testes iniciais usam SQLite isolado; validar migrations e regras específicas de PostgreSQL fará parte das mudanças de persistência.
 
 ## Trabalho em equipe
 
@@ -94,6 +94,8 @@ No GitHub, configure proteção da `main` com PR obrigatório, uma aprovação e
 A arquitetura é um monólito modular. Conteúdo e produtos serão gerenciados pelo painel, evitando mudanças de código para operações rotineiras. Consulte a proposta Word na raiz e o [contexto da equipe](equipe-especialistas/CONTEXTO-DO-PROJETO.md).
 
 ## Próximas entregas
+
+O [backlog de tarefas](docs/TAREFAS.md) organiza a ordem de execução, dependências, critérios de conclusão e as tarefas que podem ser feitas em paralelo.
 
 1. Definir as regras de membro/administrador e o primeiro administrador.
 2. Construir o site institucional e sua identidade visual.
