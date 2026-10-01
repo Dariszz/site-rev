@@ -48,7 +48,15 @@ php artisan wayfinder:generate --with-form
 npm run build
 ```
 
-Não versione `.env`, credenciais, bancos locais, `vendor` ou `node_modules`. O envio de e-mail começa em modo `log`; nenhuma integração de produção está configurada.
+Não versione `.env`, credenciais, bancos locais, `vendor` ou `node_modules`. O envio de e-mail começa em modo `log`: as mensagens (verificação de conta, redefinição de senha) são gravadas em `storage/logs/laravel.log` e não chegam a nenhuma caixa de entrada. Nenhuma integração de produção está configurada.
+
+Para ver os e-mails em uma caixa de entrada local, use o [Mailpit](https://mailpit.axllent.org/), que captura as mensagens sem entregá-las:
+
+```sh
+docker run -d --name revolucao-mail -p 127.0.0.1:1025:1025 -p 127.0.0.1:8025:8025 axllent/mailpit
+```
+
+No `.env`, defina `MAIL_MAILER=smtp`, `MAIL_HOST=127.0.0.1` e `MAIL_PORT=1025`, rode `php artisan config:clear` e abra `http://localhost:8025`. Sem o Mailpit rodando, volte para `MAIL_MAILER=log`, senão o envio falha.
 
 Em dois terminais:
 
