@@ -11,7 +11,7 @@ Registro de 2026-10-01. Escopo autorizado: README, base de projeto, dependência
 - `.env.example` usa nome Revolução, locale `pt_BR`, PostgreSQL e e-mail em log. A tradução das telas ainda não foi feita. `.env` local gerado com chave própria e ignorado.
 - Git inicializado e remoto `origin` associado ao repositório informado, inicialmente vazio. Identidade configurada somente neste repositório, com nome Pedro e e-mail fornecido pelo usuário. Criado commit documental inicial em `main`; a base da aplicação está em `chore/project-bootstrap` para revisão separada. Nenhum merge ou proteção de branch foi aplicado.
 - README e template de PR definem branches curtas, revisão pelo colega e ausência de `develop` permanente. Proteção de `main` ainda precisa ser aplicada no GitHub.
-- CI Linux em PRs e pushes para `main`: Composer install, npm ci, geração de chave, build, frontend check/tipos, Pint, PHPStan e testes. CI não executada remotamente nesta preparação.
+- CI Linux em PRs e pushes de branches: Composer install, npm ci, geração de chave, build, frontend check/tipos, Pint, PHPStan e testes. Branch documental e branch de bootstrap publicadas separadamente; não houve merge. Consultar o resultado da execução no GitHub antes de integrar.
 
 ## Verificações executadas
 

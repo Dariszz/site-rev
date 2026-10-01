@@ -65,7 +65,7 @@ composer types:check
 php artisan test
 ```
 
-`npm run check:fix` e `composer lint` alteram arquivos: revise o diff antes de commitar. A CI executa verificações frontend/backend, build e testes em PRs e na `main`. Os testes iniciais usam SQLite isolado; validar migrations e regras específicas de PostgreSQL fará parte das mudanças de persistência.
+`npm run check:fix` e `composer lint` alteram arquivos: revise o diff antes de commitar. A CI executa verificações frontend/backend, build e testes em PRs e pushes de branches. Os testes iniciais usam SQLite isolado; validar migrations e regras específicas de PostgreSQL fará parte das mudanças de persistência.
 
 ## Trabalho em equipe
 
