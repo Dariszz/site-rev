@@ -95,6 +95,8 @@ A arquitetura é um monólito modular. Conteúdo e produtos serão gerenciados p
 
 ## Próximas entregas
 
+O [backlog de tarefas](docs/TAREFAS.md) organiza a ordem de execução, dependências, critérios de conclusão e as tarefas que podem ser feitas em paralelo.
+
 1. Definir as regras de membro/administrador e o primeiro administrador.
 2. Construir o site institucional e sua identidade visual.
 3. Adicionar administração de eventos, anúncios e produtos.
