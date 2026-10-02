@@ -1,3 +1,5 @@
+<!-- PRs de tarefa usam base `beta`. Apenas a promoção da versão estável usa `beta` → `main`. -->
+
 ## Objetivo
 
 Descreva o problema e o comportamento entregue.
