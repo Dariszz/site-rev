@@ -72,7 +72,7 @@ php artisan test
 O projeto usa duas branches permanentes:
 
 - `beta`: integração. Todo Pull Request de tarefa vai primeiro para ela.
-- `main`: versão estável. Recebe apenas o conteúdo da `beta` já revisado e validado.
+- `main`: versão estável, atualizada a partir da `beta`.
 
 Use branches curtas por tarefa, criadas a partir da `beta`, como `feat/eventos`, `fix/login` e `docs/ambiente-linux`.
 
@@ -84,9 +84,9 @@ git switch -c feat/nome-da-tarefa
 
 Abra o Pull Request com base `beta` (confira o campo "base" no GitHub) e peça revisão ao outro desenvolvedor. Informe objetivo, mudanças, verificações executadas e pendências; resolva conflitos na branch de trabalho. Combine alterações de schema, rotas e contratos compartilhados antes de trabalhar em paralelo. Não reescreva o histórico de uma branch usada pelo colega.
 
-Quando a `beta` estiver estável, abra um Pull Request `beta` → `main`, revisado pelos dois desenvolvedores. Não faça commits diretos em `beta` nem em `main`.
+Quando a `beta` estiver estável, abra um Pull Request `beta` → `main`.
 
-No GitHub, defina `beta` como branch padrão (os PRs passam a abrir contra ela) e proteja `beta` e `main` com PR obrigatório, uma aprovação e CI aprovada. Essas regras são configurações do repositório e não são aplicadas apenas por este README.
+No GitHub, defina `beta` como branch padrão para os PRs já abrirem contra ela.
 
 ## Estrutura
 
