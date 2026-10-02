@@ -69,17 +69,24 @@ php artisan test
 
 ## Trabalho em equipe
 
-A `main` deve conter código revisado e verificável. Use branches curtas por tarefa, como `feat/eventos`, `fix/login` e `chore/project-bootstrap`. Para dois desenvolvedores, começamos sem uma branch `develop` permanente.
+O projeto usa duas branches permanentes:
+
+- `beta`: integração. Todo Pull Request de tarefa vai primeiro para ela.
+- `main`: versão estável, atualizada a partir da `beta`.
+
+Use branches curtas por tarefa, criadas a partir da `beta`, como `feat/eventos`, `fix/login` e `docs/ambiente-linux`.
 
 ```sh
-git switch main
-git pull --ff-only origin main
+git switch beta
+git pull --ff-only origin beta
 git switch -c feat/nome-da-tarefa
 ```
 
-Abra um Pull Request para `main` e peça revisão ao outro desenvolvedor. Informe objetivo, mudanças, verificações executadas e pendências; resolva conflitos na branch de trabalho. Combine alterações de schema, rotas e contratos compartilhados antes de trabalhar em paralelo. Não reescreva o histórico de uma branch usada pelo colega.
+Abra o Pull Request com base `beta` (confira o campo "base" no GitHub) e peça revisão ao outro desenvolvedor. Informe objetivo, mudanças, verificações executadas e pendências; resolva conflitos na branch de trabalho. Combine alterações de schema, rotas e contratos compartilhados antes de trabalhar em paralelo. Não reescreva o histórico de uma branch usada pelo colega.
 
-No GitHub, configure proteção da `main` com PR obrigatório, uma aprovação e CI aprovada. Essa proteção é uma configuração do repositório e não é aplicada apenas por este README.
+Quando a `beta` estiver estável, abra um Pull Request `beta` → `main`.
+
+No GitHub, defina `beta` como branch padrão para os PRs já abrirem contra ela.
 
 ## Estrutura
 
