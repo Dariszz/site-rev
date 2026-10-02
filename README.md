@@ -33,6 +33,14 @@ npm ci
 
 Copie `.env.example` para `.env` (`Copy-Item .env.example .env` no PowerShell; `cp .env.example .env` no Linux/macOS). Crie um banco PostgreSQL local chamado `revolucao` e um usuário com acesso a ele, ou ajuste os campos `DB_*` para seu ambiente. Cada desenvolvedor usa seu próprio banco e arquivo `.env`.
 
+No Ubuntu/Mint, uma forma testada é PHP do PPA `ondrej/php` e PostgreSQL em container dedicado (porta 5433 para não conflitar com outro Postgres local; use uma senha própria e ajuste `DB_PORT`/`DB_PASSWORD` no `.env`):
+
+```sh
+sudo add-apt-repository -y ppa:ondrej/php && sudo apt update
+sudo apt install -y php8.4-cli php8.4-pgsql php8.4-sqlite3 php8.4-intl php8.4-mbstring php8.4-xml php8.4-curl php8.4-zip php8.4-bcmath php8.4-gd unzip
+docker run -d --name revolucao-db -e POSTGRES_DB=revolucao -e POSTGRES_USER=revolucao -e POSTGRES_PASSWORD=<senha> -p 127.0.0.1:5433:5432 -v revolucao-pgdata:/var/lib/postgresql/data postgres:17
+```
+
 ```sh
 php artisan key:generate
 php artisan migrate
@@ -40,7 +48,15 @@ php artisan wayfinder:generate --with-form
 npm run build
 ```
 
-Não versione `.env`, credenciais, bancos locais, `vendor` ou `node_modules`. O envio de e-mail começa em modo `log`; nenhuma integração de produção está configurada.
+Não versione `.env`, credenciais, bancos locais, `vendor` ou `node_modules`. O envio de e-mail começa em modo `log`: as mensagens (verificação de conta, redefinição de senha) são gravadas em `storage/logs/laravel.log` e não chegam a nenhuma caixa de entrada. Nenhuma integração de produção está configurada.
+
+Para ver os e-mails em uma caixa de entrada local, use o [Mailpit](https://mailpit.axllent.org/), que captura as mensagens sem entregá-las:
+
+```sh
+docker run -d --name revolucao-mail -p 127.0.0.1:1025:1025 -p 127.0.0.1:8025:8025 axllent/mailpit
+```
+
+No `.env`, defina `MAIL_MAILER=smtp`, `MAIL_HOST=127.0.0.1` e `MAIL_PORT=1025`, rode `php artisan config:clear` e abra `http://localhost:8025`. Sem o Mailpit rodando, volte para `MAIL_MAILER=log`, senão o envio falha.
 
 Em dois terminais:
 

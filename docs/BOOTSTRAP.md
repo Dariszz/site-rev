@@ -50,3 +50,27 @@ Somente extensões que carregaram foram habilitadas no PHP portátil local. O ex
 Antes de desenvolvimento executável neste computador, disponibilizar um ambiente PHP/Node permitido pela política da máquina, com drivers PostgreSQL/SQLite carregando, e uma instância PostgreSQL local ou de desenvolvimento. Uma instalação confiável administrada, WSL ou container são alternativas a avaliar com o responsável pelo ambiente; nenhuma foi provisionada nesta preparação.
 
 Reexecutar build, check e testes quando o ambiente local estiver disponível e confirmar conexão e migrations PostgreSQL. A CI validou a base em Linux com SQLite de teste; não confirma conexão com uma instância PostgreSQL. Nenhuma migration foi aplicada a banco real e nenhum deploy foi realizado. A revisão desta entrega é própria, sem subagentes independentes.
+
+## Ambiente local Linux (2026-10-01)
+
+Segundo computador, Linux Mint 22.2 (base Ubuntu 24.04), branch `chore/project-bootstrap` em `26181be`. Sem alteração de código ou dependências.
+
+- PHP 8.4.26 do PPA `ondrej/php` com `pdo_pgsql`, `pdo_sqlite`, `intl`, `mbstring`, `xml`/`dom`, `curl`, `zip`, `bcmath` e `gd`, instalado pelo usuário com sudo.
+- Composer 2.10.3 em `~/.local/bin`, instalador conferido com o SHA-384 publicado.
+- Node 24.14.0 via nvm (`.nvmrc`).
+- PostgreSQL 17 em container dedicado `revolucao-db`, `127.0.0.1:5433`, volume `revolucao-pgdata`; a porta 5432 já era usada por outro projeto. Senha local apenas no `.env`.
+
+| Verificação | Resultado |
+|---|---|
+| `composer validate --strict` | Passou |
+| `composer install --no-interaction --prefer-dist` | Passou |
+| `npm ci` | Passou; zero vulnerabilidades |
+| `php artisan key:generate`, `wayfinder:generate --with-form` | Passaram |
+| `php artisan migrate` no PostgreSQL | 5 migrations aplicadas; primeira confirmação com PostgreSQL real |
+| `npm run build` | Passou (antes bloqueado no Windows) |
+| `npm run check`, `npm run types:check` | Passaram |
+| `composer test` (Pint, PHPStan, PHPUnit) | Pint e PHPStan passaram; PHPUnit passou com 40 testes/138 asserções após o build (sem `public/build/manifest.json`, 12 testes de página retornam 500) |
+| `php artisan test` com `DB_CONNECTION=pgsql` em banco separado `revolucao_test` | 40 testes/138 asserções passaram em PostgreSQL |
+| `php artisan serve` + requisições HTTP | `/`, `/login`, `/register` 200; `/dashboard` redireciona para `/login` |
+
+Os impedimentos locais da seção anterior se referem ao computador Windows e continuam em aberto lá. Não houve teste manual de cadastro/login no navegador, merge do PR #1 nem deploy.
